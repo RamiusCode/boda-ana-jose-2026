@@ -1,0 +1,113 @@
+---
+// CompartirFotos.astro
+// Invita a subir las fotos de la boda a un álbum compartido.
+// Enlace del álbum de Google Fotos: pendiente, lo mandan los novios.
+const album = "#";
+// Con el enlace real se abre en otra pestaña; con "#" se queda en la página.
+const externo = album !== "#";
+---
+
+<section id="compartir-fotos" class="relative w-full py-10 px-6 overflow-hidden isolate">
+    <!-- FLOR DECORATIVA DERECHA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 right-0 w-[4.9rem] pointer-events-none select-none opacity-30 scale-x-[-1] -translate-y-1/2 z-[-1]"
+    />
+
+    <div
+        id="card-compartir-fotos"
+        data-revelar="abajo"
+        class="relative bg-white rounded-3xl shadow-xl px-7 py-9 text-center max-w-xs mx-auto"
+    >
+        <!-- Marco rosado interior -->
+        <div
+            class="pointer-events-none absolute inset-3 rounded-2xl border"
+            style="border-color: rgba(232,169,163,0.4);"
+        >
+        </div>
+
+        <div class="relative">
+            <!-- ICONO: cámara con corazón en el lente -->
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 64 64"
+                fill="none"
+                class="w-16 h-16 mx-auto"
+                stroke="#3F5AA6"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <!-- Corazones flotando -->
+                <path
+                    d="M12 10 C12 10 8.5 7.8 8.5 5.8 C8.5 4.8 9.3 4.2 10.2 4.2 C10.9 4.2 11.6 4.7 12 5.4 C12.4 4.7 13.1 4.2 13.8 4.2 C14.7 4.2 15.5 4.8 15.5 5.8 C15.5 7.8 12 10 12 10Z"
+                    fill="#DE8F8A"
+                    stroke="none"></path>
+                <path
+                    d="M53 12 C53 12 48.8 9.4 48.8 7 C48.8 5.8 49.8 5 50.9 5 C51.8 5 52.5 5.6 53 6.4 C53.5 5.6 54.2 5 55.1 5 C56.2 5 57.2 5.8 57.2 7 C57.2 9.4 53 12 53 12Z"
+                    fill="#DE8F8A"
+                    stroke="none"></path>
+                <!-- Cuerpo -->
+                <rect x="6" y="20" width="52" height="34" rx="5"></rect>
+                <!-- Visor -->
+                <path d="M22 20 L25 14 H39 L42 20"></path>
+                <!-- Flash -->
+                <rect x="47" y="25" width="6" height="3" rx="1"></rect>
+                <!-- Lente -->
+                <circle cx="32" cy="37" r="11"></circle>
+                <!-- Corazón dentro del lente -->
+                <path
+                    d="M32 42 C32 42 26.8 38.8 26.8 35.6 C26.8 34 28 33 29.4 33 C30.5 33 31.4 33.6 32 34.6 C32.6 33.6 33.5 33 34.6 33 C36 33 37.2 34 37.2 35.6 C37.2 38.8 32 42 32 42Z"
+                    fill="#DE8F8A"
+                    stroke="none"></path>
+            </svg>
+
+            <!-- TÍTULO -->
+            <p class="font-romantic text-[2rem] text-[#DE8F8A] leading-[1.4] mt-3">
+                Comparte tus<br />Fotos
+            </p>
+
+            <!-- DIVISOR con rombo rosado -->
+            <div class="flex items-center justify-center gap-2 mt-3">
+                <span
+                    class="h-px w-10"
+                    style="background-color: rgba(232,169,163,0.6);"></span>
+                <span
+                    class="w-1.5 h-1.5 rotate-45"
+                    style="background-color: #E8A9A3;"></span>
+                <span
+                    class="h-px w-10"
+                    style="background-color: rgba(232,169,163,0.6);"></span>
+            </div>
+
+            <!-- TEXTO -->
+            <p
+                class="font-cormorant italic text-xl text-[#3B5296] mt-5 leading-relaxed"
+            >
+                Te invitamos a compartir tus fotografías de nuestra boda
+            </p>
+
+            <!-- BOTÓN al álbum compartido -->
+            <a
+                href={album}
+                target={externo ? "_blank" : undefined}
+                rel={externo ? "noopener noreferrer" : undefined}
+                class="inline-flex items-center gap-2 mt-6 py-2.5 px-7 rounded-full font-cormorant uppercase text-xs tracking-widest text-white bg-[#3F5AA6] shadow-md hover:bg-[#2F4A93] transition-colors"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                >
+                    <path d="M9 4.5 7.6 6H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-2.6L15 4.5zM12 9a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
+                </svg>
+                Compartir fotos
+            </a>
+        </div>
+    </div>
+</section>

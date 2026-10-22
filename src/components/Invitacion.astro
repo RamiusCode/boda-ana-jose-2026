@@ -18,6 +18,7 @@ import Despedida from "./Despedida.astro";
 import FotoFinal from "./FotoFinal.astro";
 import Confirmar from "./Confirmar.astro";
 import GaleriaFotos from "./GaleriaFotos.astro";
+import CompartirFotos from "./CompartirFotos.astro";
 import Pase from "./Pase.astro";
 
 export interface Props {
@@ -40,6 +41,7 @@ const { pases } = Astro.props;
     <CodigoVestimenta />
     <SugerenciaRegalos />
     <GaleriaFotos />
+    <CompartirFotos />
     <Pase pases={pases} />
     <Confirmar />
     <Despedida />

@@ -1,19 +1,20 @@
 ---
 // GaleriaFotos.astro
-// Las 3 fotos de la galería: foto2, foto3 y foto4. La foto1 se omite
+// Las 4 fotos de la galería: foto2, foto3, foto4 y foto5. La foto1 se omite
 // porque ya se usa como foto principal en NombresFlores. Se guardan las
 // proporciones reales para que el mosaico reserve el alto y no salte al cargar.
 const fotos = [
     { n: 2, w: 1016, h: 1600 },
     { n: 3, w: 1080, h: 608 },
     { n: 4, w: 960, h: 1280 },
+    { n: 5, w: 902, h: 1599 },
 ];
 
-// Las fotos ya vienen optimizadas (entre 88 y 118 KB), así que se sirven tal
+// Las fotos ya vienen optimizadas (entre 88 y 120 KB), así que se sirven tal
 // cual: no hay versiones reescaladas en /imagenes/galeria para estas fotos.
 const src = (n: number) => "/imagenes/foto" + n + ".webp";
 
-// Con 3 fotos un set mide poco, así que se repite tres veces para que el
+// Con 4 fotos un set mide poco, así que se repite tres veces para que el
 // bucle del carrusel no deje hueco visible ni en pantallas anchas.
 const carrusel = [...fotos, ...fotos, ...fotos];
 ---

@@ -43,13 +43,13 @@ Av. Jose Aguirre Acha, Zona Los Pinos
 hora: 17:30
 map google: (pendiente: el QR de la tarjeta impresa lleva a la iglesia)
 
-7. ITINERARIO:
-Recepción 17:30
-Brindis   18:30
-Cena      19:30
-Fiesta    20:30
-Torta     22:30
-Fin       01:00
+7. ITINERARIO (corregido por los novios el 22/10/2026, sin la misa):
+Recepción           17:30
+Brindis             18:00
+Cena                19:00
+Fiesta              20:00
+Torta               22:30
+Felices por siempre 00:00
 
 8. CÓDIGO DE VESTIMENTA:
 Caballeros: Traje Formal
