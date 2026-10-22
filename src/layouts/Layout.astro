@@ -1,0 +1,227 @@
+---
+// src/layouts/Layout.astro
+import "../styles/global.css";
+export interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+
+// Vista previa al compartir el enlace (WhatsApp, Facebook, Telegram…).
+// Las URLs deben ser absolutas, de ahí que dependan de `site`.
+//
+// miniatura-og.jpg sale de miniatura.jpg con `npm run miniatura`: la original
+// es 1527x1080 y WhatsApp solo muestra la tarjeta grande con 1200x630, así que
+// el script la encaja entera en ese lienzo en vez de recortarla.
+const miniatura = Astro.site
+  ? new URL("/imagenes/miniatura-og.jpg", Astro.site).href
+  : "/imagenes/miniatura-og.jpg";
+const urlPagina = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : Astro.url.href;
+---
+
+<!doctype html>
+<html lang="es" class="m-0 p-0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="only light" />
+    <link rel="icon" type="image/png" href="/imagenes/anillo2.png" />
+    <link rel="apple-touch-icon" href="/imagenes/anillo2.png" />
+
+    <!-- Precarga de lo que se ve en el primer pantallazo: sin esto el
+         navegador no descubre estas imágenes hasta procesar el CSS. -->
+    <link rel="preload" as="image" href="/imagenes/paleta/sobre.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/imagenes/paleta/boton2.webp" fetchpriority="high" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- ═══ VISTA PREVIA DEL ENLACE ═══
+         Solo la miniatura, que ya lleva impreso el nombre de los novios:
+         título y descripción van vacíos a propósito para que no aparezca
+         texto bajo la imagen. WhatsApp igualmente muestra siempre el
+         dominio; eso no se puede quitar. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={urlPagina} />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content={miniatura} />
+    <meta property="og:image:secure_url" content={miniatura} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={miniatura} />
+    <!-- Google Fonts: un solo pedido. Las letras de los nombres (Romantic
+         Lovely, Upcii, Upcil) se sirven desde /fonts/ del propio sitio. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Charm:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* FORZAR MODO CLARO - DESHABILITAR MODO OSCURO */
+      :root {
+        color-scheme: only light;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color-scheme: only light;
+      }
+
+      html {
+        width: 100%;
+        /* Sin height:100% — si no, <html> se vuelve un contenedor de scroll
+           del alto de la pantalla y el primer deslizamiento en móvil se pierde. */
+        overflow-x: hidden;
+        color-scheme: only light;
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+        color-scheme: only light;
+        position: relative;
+        background-color: #ffffff;
+        /* El modo oscuro forzado oscurece colores pero respeta imágenes */
+        background-image: linear-gradient(#fff, #fff);
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("/imagenes/BlancoTextura.webp");
+        background-repeat: repeat;
+        background-size: contain;
+        opacity: 0.5;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+        background: transparent !important;
+      }
+
+      /* Prevenir cualquier cambio de color por modo oscuro */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: only light !important;
+        }
+
+        html,
+        body {
+          background-color: white !important;
+          color: inherit !important;
+        }
+
+        * {
+          color-scheme: only light !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen m-0 p-0">
+    <main class="m-0 p-0 overflow-x-hidden">
+      <slot />
+    </main>
+
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      /* ═══════════════════════════════════════════════════════════
+         ANIMACIÓN DE ENTRADA — única para toda la invitación.
+         Cada componente solo marca con data-revelar los elementos
+         que deben aparecer; el ritmo se define aquí, una sola vez,
+         para que todas las secciones entren exactamente igual.
+         ═══════════════════════════════════════════════════════════ */
+      const ENTRADA = {
+        duracion: 1.25, // lo que tarda en aparecer cada elemento
+        lateral: 58, // píxeles que se desplaza si entra de un costado
+        vertical: 44, // píxeles que se desplaza si entra por arriba/abajo
+        giro: 1.2, // grados de inclinación inicial, apenas perceptible
+        escala: 0.97, // arranca un punto más pequeño
+        desenfoque: 5, // se enfoca al entrar, da el aire elegante
+        escalonado: 0.14, // retraso entre elementos de una misma sección
+        suavizado: "power3.out",
+        inicio: "top 85%", // dispara al asomar la sección
+      };
+
+      /* Desde dónde entra cada elemento. Se elige en el HTML con
+         data-revelar="izquierda | derecha | arriba | abajo | centro".
+         Sin valor entra desde abajo. */
+      function origen(el: Element) {
+        switch (el.getAttribute("data-revelar")) {
+          case "izquierda":
+            return { x: -ENTRADA.lateral, y: 0, rotate: -ENTRADA.giro };
+          case "derecha":
+            return { x: ENTRADA.lateral, y: 0, rotate: ENTRADA.giro };
+          case "arriba":
+            return { x: 0, y: -ENTRADA.vertical, rotate: 0 };
+          case "centro":
+            return { x: 0, y: 0, rotate: 0 };
+          default:
+            return { x: 0, y: ENTRADA.vertical, rotate: 0 };
+        }
+      }
+
+      function prepararEntradas() {
+        document.querySelectorAll("main section").forEach((seccion) => {
+          const elementos = seccion.querySelectorAll("[data-revelar]");
+          if (!elementos.length) return;
+
+          gsap.fromTo(
+            elementos,
+            {
+              opacity: 0,
+              scale: ENTRADA.escala,
+              filter: `blur(${ENTRADA.desenfoque}px)`,
+              x: (_i: number, el: Element) => origen(el).x,
+              y: (_i: number, el: Element) => origen(el).y,
+              rotate: (_i: number, el: Element) => origen(el).rotate,
+            },
+            {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              rotate: 0,
+              scale: 1,
+              filter: "blur(0px)",
+              duration: ENTRADA.duracion,
+              ease: ENTRADA.suavizado,
+              stagger: ENTRADA.escalonado,
+              scrollTrigger: {
+                trigger: seccion,
+                start: ENTRADA.inicio,
+                // "reset" devuelve el elemento a su estado inicial al subir,
+                // así la entrada se repite cada vez que se vuelve a bajar.
+                toggleActions: "play none none reset",
+              },
+            },
+          );
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", prepararEntradas);
+    </script>
+  </body>
+</html>

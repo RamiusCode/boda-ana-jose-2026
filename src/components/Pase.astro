@@ -1,0 +1,129 @@
+---
+// Pase.astro
+// Tarjeta con los pases asignados al invitado. El número se pasa desde
+// index.astro —<Pase pases={2} />— para poder generar una invitación
+// distinta según a quién se le envíe.
+export interface Props {
+    pases?: number;
+}
+
+const { pases = 2 } = Astro.props;
+
+// Con un solo pase se tutea al invitado; desde dos, la frase va en plural.
+const individual = pases === 1;
+const etiqueta = individual ? "Pase" : "Pases";
+const frase = individual
+    ? "Esperamos contar con tu presencia"
+    : "Esperamos contar con su presencia";
+---
+
+<section id="pases" class="relative w-full py-10 px-6 overflow-hidden isolate">
+    <!-- FLOR DECORATIVA IZQUIERDA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 -left-12 w-40 pointer-events-none select-none opacity-30 -translate-y-1/2 z-[-1]"
+    />
+
+    <div
+        id="card-pases"
+        data-revelar="abajo"
+        class="relative bg-white rounded-3xl shadow-xl px-7 py-9 text-center max-w-xs mx-auto"
+    >
+        <!-- Marco rosado interior -->
+        <div
+            class="pointer-events-none absolute inset-3 rounded-2xl border"
+            style="border-color: rgba(232,169,163,0.4);"
+        >
+        </div>
+
+        <div class="relative">
+            <!-- ICONO DE PASES -->
+            <img
+                src="/imagenes/paleta/pase.png"
+                alt=""
+                aria-hidden="true"
+                class="w-14 h-14 mx-auto"
+            />
+
+            <!-- TÍTULO -->
+            <p
+                class="font-cormorant uppercase tracking-[0.28em] text-base text-[#2F4FA2] mt-4"
+            >
+                Pases Asignados
+            </p>
+
+            <!-- DIVISOR con rombo rosado -->
+            <div class="flex items-center justify-center gap-2 mt-3">
+                <span
+                    class="h-px w-10"
+                    style="background-color: rgba(232,169,163,0.6);"></span>
+                <span
+                    class="w-1.5 h-1.5 rotate-45"
+                    style="background-color: #E8A9A3;"></span>
+                <span
+                    class="h-px w-10"
+                    style="background-color: rgba(232,169,163,0.6);"></span>
+            </div>
+
+            <!-- NÚMERO DE PASES -->
+            <p
+                class="font-charm font-bold text-6xl text-[#2F4FA2] leading-none mt-3"
+            >
+                {pases}
+            </p>
+
+            <!-- PASE / PASES -->
+            <p
+                class="font-cormorant uppercase tracking-[0.3em] text-sm text-[#3B5296] mt-2"
+            >
+                {etiqueta}
+            </p>
+
+            <!-- DIVISOR inferior -->
+            <div class="flex items-center justify-center gap-2 mt-3">
+                <span
+                    class="h-px w-10"
+                    style="background-color: rgba(232,169,163,0.6);"></span>
+                <span
+                    class="w-1.5 h-1.5 rotate-45"
+                    style="background-color: #E8A9A3;"></span>
+                <span
+                    class="h-px w-10"
+                    style="background-color: rgba(232,169,163,0.6);"></span>
+            </div>
+
+            <!-- FRASE -->
+            <p
+                class="font-cormorant italic text-xl text-[#3B5296] mt-5 leading-relaxed"
+            >
+                {frase}
+            </p>
+
+            <!-- SILUETAS: una por pase -->
+            <div class="flex items-center justify-center gap-3 mt-6">
+                {
+                    Array.from({ length: pases }).map(() => (
+                        <span
+                            class="w-9 h-9 rounded-full flex items-center justify-center"
+                            style="background-color: #fbf0ee; border: 1px solid rgba(232,169,163,0.45);"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                class="w-5 h-5"
+                                fill="#3F5AA6"
+                                aria-hidden="true"
+                            >
+                                <circle cx="12" cy="8" r="3.6" />
+                                <path d="M12 13.2c-3.6 0-6.4 2.2-6.4 4.9 0 .5.4.9.9.9h11c.5 0 .9-.4.9-.9 0-2.7-2.8-4.9-6.4-4.9z" />
+                            </svg>
+                        </span>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

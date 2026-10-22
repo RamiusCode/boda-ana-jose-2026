@@ -1,0 +1,96 @@
+---
+// Despedida.astro
+---
+
+<section id="despedida" class="relative w-full py-12 px-8 text-center overflow-hidden isolate">
+
+    <!-- FLOR DECORATIVA DERECHA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 -left-12 w-40 pointer-events-none select-none opacity-30 -translate-y-1/2 z-[-1]"
+    />
+    <div class="relative z-10">
+    <!-- SEPARADOR IMAGEN -->
+    <img
+        data-revelar="centro"
+        src="/imagenes/paleta/separador.png"
+        alt=""
+        aria-hidden="true"
+        class="mx-auto mb-8 w-48"
+    />
+
+    <!-- TEXTO DE DESPEDIDA -->
+    <p
+        data-revelar="izquierda"
+        class="font-cormorant italic text-xl text-[#3B5296] leading-[1.85] max-w-xs mx-auto"
+    >
+        Gracias por acompañarnos en el día más especial de nuestra historia. Su
+        compañía en este día es el mayor regalo que podemos recibir. Gracias por
+        sus oraciones, su cariño y por ser parte de nuestro camino. Estamos
+        agradecidos con Dios por permitirnos celebrar este momento con ustedes,
+        nuestra familia y amigos más queridos.
+    </p>
+
+    <!-- ═══ FIRMA ═══ -->
+
+    <!-- Ornamento de apertura: rombo entre líneas -->
+    <div
+        data-revelar="derecha"
+        class="flex items-center justify-center gap-3 mt-10"
+    >
+        <span
+            class="h-px w-12"
+            style="background-color: rgba(232,169,163,0.55);"></span>
+        <span
+            class="w-1.5 h-1.5 rotate-45"
+            style="background-color: #E8A9A3;"></span>
+        <span
+            class="h-px w-12"
+            style="background-color: rgba(232,169,163,0.55);"></span>
+    </div>
+
+    <!-- CON TODO NUESTRO AMOR -->
+    <p
+        data-revelar="izquierda"
+        class="font-upcil uppercase text-2xl text-[#263F86] mt-5 tracking-[0.05em]"
+    >
+        Con todo nuestro amor
+    </p>
+
+    <!-- NOMBRES -->
+    <h2
+        data-revelar="abajo"
+        class="font-romantic text-3xl text-[#DE8F8A] mt-5 leading-tight text-center mx-auto max-w-full"
+    >
+        Ana Paola<br />
+        <span class="font-romantic text-[#2F4FA2]" style="font-size: 0.82em;">y</span><br />
+        José Alfredo
+    </h2>
+
+    <!-- Cierre: corazón azul entre líneas -->
+    <div
+        data-revelar="centro"
+        class="flex items-center justify-center gap-3 mt-4"
+    >
+        <span
+            class="h-px w-10"
+            style="background-color: rgba(232,169,163,0.5);"></span>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="w-4 h-4"
+            fill="#2F4FA2"
+            aria-hidden="true"
+        >
+            <path
+                d="M12 21 C12 21 2.5 14.6 2.5 8.8 C2.5 5.9 4.8 4 7.4 4 C9.4 4 11.1 5.2 12 6.9 C12.9 5.2 14.6 4 16.6 4 C19.2 4 21.5 5.9 21.5 8.8 C21.5 14.6 12 21 12 21Z"
+            ></path>
+        </svg>
+        <span
+            class="h-px w-10"
+            style="background-color: rgba(232,169,163,0.5);"></span>
+    </div>
+    </div>
+</section>

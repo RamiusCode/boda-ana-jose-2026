@@ -1,0 +1,135 @@
+---
+// DireccionCeremonia.astro
+// La ceremonia religiosa y la recepción son en lugares distintos, así que
+// cada una lleva su propia tarjeta con su hora, dirección y mapa.
+const lugares = [
+    {
+        id: "card-ceremonia",
+        revelar: "izquierda",
+        icono: "/imagenes/paleta/iglesia.png",
+        titulo: "Ceremonia<br />Religiosa",
+        hora: "14:45",
+        etiquetaHora: "Ceremonia",
+        lugar: "Iglesia<br />“Amor de Dios”",
+        direccion: "Calle Las Gaviotas,<br />Zona Amor de Dios",
+        mapa: "https://maps.app.goo.gl/K91dhvLjVJRXxJHP7",
+    },
+    {
+        id: "card-recepcion",
+        revelar: "derecha",
+        icono: "/imagenes/paleta/recepcion.png",
+        titulo: "Recepción",
+        hora: "17:30",
+        etiquetaHora: "Recepción",
+        lugar: "“Círculo Aeronáutico”<br />Salón de Honor",
+        direccion: "Av. José Aguirre Acha,<br />Zona Los Pinos",
+        // La tarjeta impresa repite el QR de la iglesia; hasta tener el
+        // enlace del salón, se abre la búsqueda en Google Maps.
+        mapa: "https://www.google.com/maps/search/?api=1&query=Circulo+Aeronautico+Av.+Jose+Aguirre+Acha+Los+Pinos+La+Paz",
+    },
+];
+---
+
+<section
+    id="direccion-ceremonia"
+    class="relative w-full py-10 px-6 overflow-hidden isolate"
+>
+    <!-- FLOR DECORATIVA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 -right-12 w-36 pointer-events-none select-none opacity-20 -translate-y-1/2 scale-x-[-1] z-[-1]"
+    />
+
+    <div class="max-w-xs mx-auto flex flex-col gap-10">
+        {
+            lugares.map((lugar) => (
+                <div
+                    id={lugar.id}
+                    data-revelar={lugar.revelar}
+                    class="relative bg-white rounded-3xl shadow-xl px-7 py-9 text-center"
+                >
+                    {/* Marco rosado interior */}
+                    <div
+                        class="pointer-events-none absolute inset-3 rounded-2xl border"
+                        style="border-color: rgba(232,169,163,0.4);"
+                    />
+
+                    <div class="relative">
+                        {/* ICONO */}
+                        <img
+                            src={lugar.icono}
+                            alt=""
+                            aria-hidden="true"
+                            class="w-14 h-14 mx-auto"
+                        />
+
+                        {/* TÍTULO */}
+                        <p
+                            class="font-romantic text-[2rem] text-[#DE8F8A] leading-[1.4] mt-3"
+                            set:html={lugar.titulo}
+                        />
+
+                        {/* DIVISOR con rombo rosado */}
+                        <div class="flex items-center justify-center gap-2 mt-4">
+                            <span
+                                class="h-px w-12"
+                                style="background-color: rgba(232,169,163,0.6);"
+                            />
+                            <span
+                                class="w-1.5 h-1.5 rotate-45"
+                                style="background-color: #E8A9A3;"
+                            />
+                            <span
+                                class="h-px w-12"
+                                style="background-color: rgba(232,169,163,0.6);"
+                            />
+                        </div>
+
+                        {/* HORA */}
+                        <div class="flex flex-col items-center mt-5">
+                            <p class="font-charm font-bold text-3xl text-[#2F4FA2] leading-none">
+                                {lugar.hora}
+                            </p>
+                            <p class="font-cormorant uppercase tracking-[0.18em] text-xs text-[#DE8F8A] mt-1.5">
+                                {lugar.etiquetaHora}
+                            </p>
+                        </div>
+
+                        {/* LUGAR */}
+                        <p
+                            class="font-cormorant uppercase text-[1.4rem] text-[#263F86] tracking-[0.1em] mt-6 leading-relaxed"
+                            set:html={lugar.lugar}
+                        />
+
+                        {/* DIRECCIÓN */}
+                        <p
+                            class="font-cormorant italic text-xl text-[#5670B0] mt-3 leading-relaxed"
+                            set:html={lugar.direccion}
+                        />
+
+                        {/* BOTÓN con ícono de ubicación */}
+                        <a
+                            href={lugar.mapa}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 mt-6 py-2.5 px-7 rounded-full font-cormorant uppercase text-xs tracking-widest text-white bg-[#3F5AA6] shadow-md hover:bg-[#2F4A93] transition-colors"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="w-3.5 h-3.5"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" />
+                            </svg>
+                            Ver Ubicación
+                        </a>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</section>
+

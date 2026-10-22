@@ -1,0 +1,64 @@
+---
+// Confirmar.astro
+const mensaje = encodeURIComponent(
+    "Me complace confirmar mi asistencia a la boda de Ana Paola y José Alfredo. Nos vemos el sábado 28 de noviembre. ¡Estaré sin falta!",
+);
+
+// La impresa no trae un número para confirmar: se usan los celulares de la
+// casa de la novia y la del novio que figuran en la tarjeta de regalos.
+const contactos = [
+    { etiqueta: "Confirmar con la novia", telefono: "59168213330" },
+    { etiqueta: "Confirmar con el novio", telefono: "59171544550" },
+];
+---
+
+<section id="confirmar" class="relative w-full py-10 px-6 text-center overflow-hidden isolate">
+
+    <!-- FLOR DECORATIVA IZQUIERDA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 -right-12 w-40 pointer-events-none select-none opacity-30 -translate-y-1/2 scale-x-[-1] z-[-1]"
+    />
+    <!-- SEPARADOR -->
+    <img
+        data-revelar="centro"
+        src="/imagenes/paleta/separador.png"
+        alt=""
+        aria-hidden="true"
+        class="mx-auto mb-7 w-48"
+    />
+
+    <!-- TÍTULO -->
+    <p data-revelar="arriba" class="font-romantic text-3xl text-[#DE8F8A] leading-snug">
+        Confirmar Asistencia
+    </p>
+
+    <!-- TEXTO -->
+    <p
+        data-revelar="izquierda"
+        class="font-cormorant italic text-xl text-[#3B5296] mt-4 leading-relaxed max-w-xs mx-auto"
+    >
+        Tu presencia es muy importante para nosotros. <br />Por favor,
+        confírmanos tu asistencia.
+    </p>
+
+    <!-- BOTONES WHATSAPP -->
+    <div data-revelar="derecha" class="flex flex-col items-center gap-4 mt-8">
+        {
+            contactos.map((contacto) => (
+                <a
+                    href={`https://wa.me/${contacto.telefono}?text=${mensaje}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="w-full max-w-xs block py-3 px-6 rounded-full font-cormorant uppercase text-sm tracking-widest text-white bg-[#3F5AA6] hover:opacity-85 transition-opacity"
+                >
+                    {contacto.etiqueta}
+                </a>
+            ))
+        }
+    </div>
+
+    
+</section>

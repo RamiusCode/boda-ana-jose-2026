@@ -1,0 +1,209 @@
+---
+// Fecha.astro
+---
+
+<section
+    id="fecha-boda"
+    class="relative w-full pt-2 pb-12 px-6 text-center overflow-hidden isolate"
+>
+    <!-- HOJA DECORATIVA FONDO -->
+    <img
+        src="/imagenes/paleta/textura2.png"
+        alt=""
+        aria-hidden="true"
+        class="absolute bottom-4 left-0 w-52 pointer-events-none select-none opacity-[0.06]"
+    />
+
+    <!-- FLOR DECORATIVA IZQUIERDA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-[22%] -left-12 w-40 pointer-events-none select-none opacity-30 z-[-1]"
+    />
+
+    <!-- FRASE SUPERIOR -->
+    <p data-revelar="arriba" class="font-upcil uppercase text-2xl text-[#DE8F8A] leading-[1.1]">
+        Deseamos compartir con usted(es)<br />la alegría de nuestro matrimonio
+    </p>
+
+    <!-- AÑO -->
+    <p data-revelar="derecha" class="font-charm font-bold text-2xl text-[#2F4FA2] mt-6 leading-none">
+        2026
+    </p>
+
+    <!-- FILA FECHA: [Sábado entre líneas] | [28] | [Noviembre entre líneas] -->
+    <div data-revelar="izquierda" class="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 mt-3 px-2">
+        <!-- Sábado con línea arriba y abajo -->
+        <div class="flex flex-col items-center gap-1 min-w-0">
+            <div class="h-px w-full bg-[#E8A9A3] opacity-60"></div>
+            <span
+                class="font-cormorant text-xl text-[#3B5296] py-1 whitespace-nowrap"
+            >
+                Sábado
+            </span>
+            <div class="h-px w-full bg-[#E8A9A3] opacity-60"></div>
+        </div>
+
+        <!-- Caja del número día -->
+        <div
+            class="bg-white rounded-2xl px-4 py-3 shadow-md border border-[#E8A9A3] justify-self-center"
+        >
+            <span
+                class="font-charm font-bold text-6xl text-[#2F4FA2] leading-none"
+                >28</span
+            >
+        </div>
+
+        <!-- Noviembre con línea arriba y abajo -->
+        <div class="flex flex-col items-center gap-1 min-w-0">
+            <div class="h-px w-full bg-[#E8A9A3] opacity-60"></div>
+            <span
+                class="font-cormorant text-xl text-[#3B5296] py-1 whitespace-nowrap"
+            >
+                Noviembre
+            </span>
+            <div class="h-px w-full bg-[#E8A9A3] opacity-60"></div>
+        </div>
+    </div>
+
+    <!-- DÍA DE LA SEMANA -->
+    <p data-revelar="derecha" class="font-charm font-bold text-2xl text-[#2F4FA2] mt-5">14:45 horas</p>
+
+    <!-- ICONO CALENDARIO CON CORAZÓN -->
+    <div data-revelar="centro" class="flex justify-center mt-4">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 42 42"
+            fill="none"
+            class="w-10 h-10"
+        >
+            <rect
+                x="3"
+                y="8"
+                width="36"
+                height="30"
+                rx="5"
+                stroke="#E8A9A3"
+                stroke-width="1.4"></rect>
+            <line
+                x1="3"
+                y1="17"
+                x2="39"
+                y2="17"
+                stroke="#E8A9A3"
+                stroke-width="1.4"></line>
+            <line
+                x1="13"
+                y1="3"
+                x2="13"
+                y2="12"
+                stroke="#E8A9A3"
+                stroke-width="1.6"
+                stroke-linecap="round"></line>
+            <line
+                x1="29"
+                y1="3"
+                x2="29"
+                y2="12"
+                stroke="#E8A9A3"
+                stroke-width="1.6"
+                stroke-linecap="round"></line>
+            <path
+                d="M21 31 C21 31 14.5 26.8 14.5 23 C14.5 21.1 16 20 17.8 20 C19.2 20 20.3 20.8 21 22 C21.7 20.8 22.8 20 24.2 20 C26 20 27.5 21.1 27.5 23 C27.5 26.8 21 31 21 31Z"
+                fill="#2F4FA2"></path>
+        </svg>
+    </div>
+
+    <!-- ESPACIO antes de Faltan -->
+    <div class="mt-10"></div>
+
+    <!-- FALTAN -->
+    <p data-revelar="izquierda" class="font-romantic text-4xl text-[#DE8F8A] leading-none">Faltan</p>
+
+    <!-- CARD DEL CONTADOR -->
+    <div
+        data-revelar="abajo"
+        class="mt-5 mx-2 bg-white/80 rounded-2xl py-5 px-4 shadow-sm border border-[#f0dcd9]"
+    >
+        <div class="flex justify-around">
+            <div class="flex flex-col items-center">
+                <span
+                    id="countdown-days"
+                    class="font-charm font-bold text-4xl text-[#2F4FA2] leading-none"
+                    >00</span
+                >
+                <span class="font-cormorant text-base text-[#3F5AA6] mt-1"
+                    >Días</span
+                >
+            </div>
+
+            <div class="flex flex-col items-center">
+                <span
+                    id="countdown-hours"
+                    class="font-charm font-bold text-4xl text-[#2F4FA2] leading-none"
+                    >00</span
+                >
+                <span class="font-cormorant text-sm text-[#3F5AA6] mt-1"
+                    >Hrs.</span
+                >
+            </div>
+
+            <div class="flex flex-col items-center">
+                <span
+                    id="countdown-minutes"
+                    class="font-charm font-bold text-4xl text-[#2F4FA2] leading-none"
+                    >00</span
+                >
+                <span class="font-cormorant text-sm text-[#3F5AA6] mt-1"
+                    >Min.</span
+                >
+            </div>
+
+            <div class="flex flex-col items-center">
+                <span
+                    id="countdown-seconds"
+                    class="font-charm font-bold text-4xl text-[#2F4FA2] leading-none"
+                    >00</span
+                >
+                <span class="font-cormorant text-sm text-[#3F5AA6] mt-1"
+                    >S.</span
+                >
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // ── FECHA DE LA BODA (ajustar aquí, hora de Bolivia) ──────
+    const FECHA_BODA = new Date("2026-11-28T14:45:00-04:00");
+    // ──────────────────────────────────────────
+
+    function pad(n: number): string {
+        return String(n).padStart(2, "0");
+    }
+
+    function actualizar() {
+        const diff = FECHA_BODA.getTime() - Date.now();
+
+        const dEl = document.getElementById("countdown-days");
+        const hEl = document.getElementById("countdown-hours");
+        const mEl = document.getElementById("countdown-minutes");
+        const sEl = document.getElementById("countdown-seconds");
+
+        if (diff <= 0) {
+            [dEl, hEl, mEl, sEl].forEach((el) => {
+                if (el) el.textContent = "00";
+            });
+            return;
+        }
+
+        if (dEl) dEl.textContent = pad(Math.floor(diff / 86400000));
+        if (hEl) hEl.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+        if (mEl) mEl.textContent = pad(Math.floor((diff % 3600000) / 60000));
+        if (sEl) sEl.textContent = pad(Math.floor((diff % 60000) / 1000));
+    }
+
+    actualizar();
+    setInterval(actualizar, 1000);
+</script>

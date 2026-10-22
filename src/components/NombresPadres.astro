@@ -1,0 +1,54 @@
+---
+// NombresPadres.astro
+// (†) marca a quienes ya no están; se muestra igual que en la invitación impresa.
+// La impresa no lleva padrinos, así que este bloque solo tiene a los padres.
+---
+
+<section
+    id="nombres-padres"
+    class="relative w-full pt-2 pb-10 px-8 text-center overflow-hidden isolate"
+>
+    <!-- FLOR DECORATIVA DERECHA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 -right-12 w-40 pointer-events-none select-none opacity-30 scale-x-[-1] -translate-y-1/2 z-[-1]"
+    />
+    <!-- TÍTULO -->
+    <p data-revelar="arriba" class="font-upcii uppercase text-2xl leading-snug text-[#2F4FA2]">
+        Con la bendición de Dios<br />y de nuestros padres
+    </p>
+
+    <!-- PADRES DE LA NOVIA -->
+    <div data-revelar="izquierda" class="mt-6">
+        <p class="font-upcil text-2xl text-[#DE8F8A]">PADRES DE LA NOVIA</p>
+        <p class="font-cormorant nombre-padre text-[#3F5AA6] mt-1 leading-snug">
+            María del Carmen Montaño Zelada (†)
+        </p>
+        <p class="font-cormorant nombre-padre text-[#3F5AA6] leading-snug">
+            Cnl. (SP) Juan Ramiro Flores Canaviri
+        </p>
+    </div>
+
+    <!-- PADRES DEL NOVIO -->
+    <div data-revelar="derecha" class="mt-7">
+        <p class="font-upcil text-2xl text-[#DE8F8A]">PADRES DEL NOVIO</p>
+        <p class="font-cormorant nombre-padre text-[#3F5AA6] mt-1 leading-snug">
+            Nancy Vargas Quenallata
+        </p>
+        <p class="font-cormorant nombre-padre text-[#3F5AA6] leading-snug">
+            Alfredo Nay Figueredo
+        </p>
+    </div>
+</section>
+
+<style>
+    /* Cada nombre en una sola línea. El más largo ("María del Carmen Montaño
+       Zelada (†)") mide unos 15em: la letra se queda en text-xl mientras
+       entre y solo se achica en pantallas angostas (4rem = px-8 a cada lado). */
+    .nombre-padre {
+        white-space: nowrap;
+        font-size: min(1.25rem, calc((100vw - 4rem) / 15.3));
+    }
+</style>

@@ -1,0 +1,131 @@
+---
+// CodigoVestimenta.astro
+---
+
+<section
+    id="codigo-vestimenta"
+    class="relative w-full"
+    style="background-color: #3F5AA6; isolation: isolate;"
+>
+    <!-- ONDA TRANSPARENTE — muestra el fondo por defecto -->
+    <div
+        class="absolute top-0 left-0 w-full"
+        style="z-index: 1; mix-blend-mode: destination-out;"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 24"
+            preserveAspectRatio="none"
+            class="w-full block"
+            style="height: 24px;"
+        >
+            <path
+                d="M0,12 C120,3 240,3 360,12 C480,24 600,24 720,12 C840,3 960,3 1080,12 C1200,24 1320,24 1440,12 L1440,0 L0,0 Z"
+                fill="white"></path>
+        </svg>
+    </div>
+
+    <!-- FADE que cubre la línea del borde -->
+    <div
+        class="absolute left-0 w-full"
+        style="top: 20px; height: 8px; background: linear-gradient(to bottom, transparent, #3F5AA6); z-index: 3; pointer-events: none;"
+    >
+    </div>
+
+    <!-- FLOR DECORATIVA DERECHA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 -right-12 w-40 pointer-events-none select-none opacity-20 -translate-y-1/2 scale-x-[-1]"
+        style="z-index: 1;"
+    />
+
+    <!-- CONTENIDO -->
+    <div class="relative text-center px-8 pt-16 pb-10" style="z-index: 2;">
+        <!-- TÍTULO Dress Code -->
+        <p data-revelar="arriba" class="font-romantic text-3xl text-white leading-none">
+            Dress Code
+        </p>
+
+        <!-- ETIQUETA: nivel de formalidad -->
+        <p
+            data-revelar="arriba"
+            class="font-cormorant uppercase tracking-[0.3em] text-sm text-white/90 mt-3"
+        >
+            Formal
+        </p>
+
+        <!-- DOS COLUMNAS -->
+        <div class="flex items-start justify-center gap-6 mt-8">
+            <!-- DAMAS -->
+            <div data-revelar="izquierda" class="flex flex-col items-center flex-1">
+                <img
+                    src="/imagenes/vestido.png"
+                    alt="Damas"
+                    class="w-16 h-16 mx-auto"
+                    style="filter: invert(1); mix-blend-mode: screen;"
+                />
+                <p class="font-upcil uppercase text-2xl text-white mt-2">
+                    Damas
+                </p>
+                <p class="font-cormorant text-xl text-white mt-1">Traje de gala</p>
+            </div>
+
+            <!-- Línea divisoria vertical -->
+            <div
+                class="w-px self-stretch"
+                style="background: rgba(255,255,255,0.6); min-height: 80px;"
+            >
+            </div>
+
+            <!-- CABALLEROS -->
+            <div data-revelar="derecha" class="flex flex-col items-center flex-1">
+                <img
+                    src="/imagenes/traje.png"
+                    alt="Caballeros"
+                    class="w-16 h-16 mx-auto"
+                    style="filter: invert(1); mix-blend-mode: screen;"
+                />
+                <p class="font-upcil uppercase text-2xl text-white mt-2">
+                    Caballeros
+                </p>
+                <p class="font-cormorant text-xl text-white mt-1">Traje formal</p>
+            </div>
+        </div>
+
+        <!-- NOTA: el blanco queda para la novia -->
+        <p
+            data-revelar="abajo"
+            class="font-cormorant italic text-xl text-white mt-8"
+        >
+            El blanco se reserva para la novia
+        </p>
+    </div>
+
+    <!-- ONDAS ABAJO — misma técnica, rellena hacia abajo -->
+    <div
+        class="absolute bottom-0 left-0 w-full"
+        style="z-index: 1; mix-blend-mode: destination-out;"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 24"
+            preserveAspectRatio="none"
+            class="w-full block"
+            style="height: 24px;"
+        >
+            <path
+                d="M0,12 C120,3 240,3 360,12 C480,24 600,24 720,12 C840,3 960,3 1080,12 C1200,24 1320,24 1440,12 L1440,24 L0,24 Z"
+                fill="white"></path>
+        </svg>
+    </div>
+
+    <!-- FADE inferior que cubre la línea del borde -->
+    <div
+        class="absolute left-0 w-full"
+        style="bottom: 20px; height: 8px; background: linear-gradient(to top, transparent, #3F5AA6); z-index: 3; pointer-events: none;"
+    >
+    </div>
+</section>
+

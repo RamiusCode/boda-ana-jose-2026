@@ -1,0 +1,159 @@
+---
+// NombresFlores.astro
+---
+
+<section id="seccion-nombres" class="relative w-full overflow-hidden">
+
+    <!-- FLOR DECORATIVA DERECHA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 -right-12 w-40 pointer-events-none select-none opacity-30 scale-x-[-1] -translate-y-1/2 z-[-1]"
+    />
+    <!-- FOTO PRINCIPAL DE LOS NOVIOS (borde inferior rasgado) -->
+    <div id="foto-container" data-revelar="centro" class="relative w-full overflow-hidden">
+        {/* Ocupa todo el ancho. La foto ya viene optimizada (960x1280,
+            88 KB), así que se sirve tal cual, sin versiones reescaladas. */}
+        <img
+            id="foto-novios"
+            src="/imagenes/foto1.webp"
+            alt="Ana Paola y José Alfredo"
+            width="960"
+            height="1280"
+            fetchpriority="low"
+            decoding="async"
+            class="block w-full h-auto papel-rasgado"
+        />
+    </div>
+
+    <!-- TEXTO: ¡NOS CASAMOS! + NOMBRES + ANILLOS -->
+    <div
+        id="texto-nombres"
+        class="text-center px-6 pt-4 pb-2 flex flex-col items-center"
+    >
+        <p
+            data-revelar="izquierda"
+            class="font-cormorant uppercase tracking-[0.35em] text-base font-semibold"
+            style="color: #2F4FA2;"
+        >
+            ¡NOS CASAMOS!
+        </p>
+
+        <h2
+            data-revelar="derecha"
+            class="font-romantic mt-7 leading-tight whitespace-nowrap"
+            style="color: #DE8F8A; font-size: 2.1rem;"
+        >
+            {/* Un nombre por línea y la "y" en la suya, como en la portada. */}
+            Ana Paola<br /><span class="font-romantic" style="color: #2F4A93; font-size: 0.82em;"
+                >y</span
+            ><br />José Alfredo
+        </h2>
+
+        <!-- Anillo con barras rosadas horizontales a los costados -->
+        <div
+            data-revelar="abajo"
+            class="flex items-center justify-center gap-3 mt-5 w-full max-w-[15rem]"
+        >
+            <span class="h-px flex-1 bg-[#E8A9A3] opacity-70"></span>
+            <img
+                src="/imagenes/paleta/anillo.png"
+                alt="Anillos de boda"
+                class="w-12 flex-shrink-0"
+            />
+            <span class="h-px flex-1 bg-[#E8A9A3] opacity-70"></span>
+        </div>
+    </div>
+</section>
+
+<!-- BOTÓN FLOTANTE PLAY/PAUSE -->
+<button
+    id="btn-audio-control"
+    aria-label="Controlar música"
+    class="fixed bottom-6 right-6 z-[9999] w-12 h-12 rounded-full shadow-lg
+           flex items-center justify-center
+           transition-all duration-300 hover:scale-110 active:scale-95"
+    style="opacity: 0; pointer-events: none; background-color: #fbf0ee; border: 1.5px solid #263F86;"
+>
+    <svg
+        id="icono-pause"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="#263F86"
+    >
+        <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+        <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+    </svg>
+    <svg
+        id="icono-play"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 hidden"
+        viewBox="0 0 24 24"
+        fill="#263F86"
+    >
+        <path d="M8 5v14l11-7z"></path>
+    </svg>
+</button>
+
+<script>
+    import { gsap } from "gsap";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // BOTÓN FLOTANTE PLAY/PAUSE
+        const btnAudio = document.getElementById(
+            "btn-audio-control",
+        ) as HTMLButtonElement;
+        const iconoPlay = document.getElementById("icono-play");
+        const iconoPause = document.getElementById("icono-pause");
+
+        const intervalo = setInterval(() => {
+            const audio = (window as any).audioGlobal;
+            if (audio) {
+                clearInterval(intervalo);
+                gsap.to(btnAudio, {
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    onStart: () => {
+                        btnAudio.style.pointerEvents = "auto";
+                    },
+                });
+                iconoPlay?.classList.add("hidden");
+                iconoPause?.classList.remove("hidden");
+
+                btnAudio.addEventListener("click", () => {
+                    const audioActual = (window as any).audioGlobal;
+                    const reproduciendo = (window as any)
+                        .estaReproduciendoGlobal;
+                    if (!audioActual) return;
+                    if (reproduciendo) {
+                        audioActual.pause();
+                        (window as any).estaReproduciendoGlobal = false;
+                        iconoPause?.classList.add("hidden");
+                        iconoPlay?.classList.remove("hidden");
+                    } else {
+                        audioActual.play();
+                        (window as any).estaReproduciendoGlobal = true;
+                        iconoPlay?.classList.add("hidden");
+                        iconoPause?.classList.remove("hidden");
+                    }
+                    gsap.fromTo(
+                        btnAudio,
+                        { scale: 0.85 },
+                        { scale: 1, duration: 0.3, ease: "back.out(2)" },
+                    );
+                });
+            }
+        }, 300);
+    });
+</script>
+
+<style>
+    /* Borde inferior rasgado, como papel roto.
+       Al recortar la imagen, por el desgarro se ve la textura del fondo. */
+    .papel-rasgado {
+        clip-path: polygon(0% 0%, 100% 0%, 100.00% 96.55%, 98.18% 96.97%, 96.36% 96.33%, 94.55% 97.65%, 92.73% 96.46%, 90.91% 95.93%, 89.09% 97.47%, 87.27% 98.55%, 85.45% 98.00%, 83.64% 97.49%, 81.82% 97.82%, 80.00% 97.80%, 78.18% 96.72%, 76.36% 96.54%, 74.55% 95.83%, 72.73% 97.43%, 70.91% 98.18%, 69.09% 98.32%, 67.27% 99.00%, 65.45% 99.69%, 63.64% 98.72%, 61.82% 98.65%, 60.00% 97.56%, 58.18% 97.02%, 56.36% 96.84%, 54.55% 96.74%, 52.73% 96.07%, 50.91% 96.84%, 49.09% 96.90%, 47.27% 97.47%, 45.45% 96.20%, 43.64% 96.04%, 41.82% 96.37%, 40.00% 97.37%, 38.18% 96.74%, 36.36% 97.92%, 34.55% 98.47%, 32.73% 98.93%, 30.91% 98.69%, 29.09% 97.73%, 27.27% 96.52%, 25.45% 95.69%, 23.64% 97.35%, 21.82% 96.11%, 20.00% 96.03%, 18.18% 96.05%, 16.36% 96.33%, 14.55% 97.01%, 12.73% 96.60%, 10.91% 96.23%, 9.09% 96.34%, 7.27% 96.02%, 5.45% 97.40%, 3.64% 97.55%, 1.82% 97.46%, 0.00% 94.80%);
+    }
+</style>

@@ -1,0 +1,81 @@
+---
+// Itinerario.astro
+// Los momentos del evento. `posicion` alterna columna izquierda/derecha; la
+// derecha baja (pt-16) para que el zigzag no quede alineado con la izquierda.
+const momentos = [
+    { icono: "recepcion", titulo: "Recepción", hora: "17:30 Hrs." },
+    { icono: "brindis", titulo: "Brindis", hora: "18:30 Hrs." },
+    { icono: "cena", titulo: "Cena", hora: "19:30 Hrs." },
+    { icono: "musica", titulo: "Fiesta", hora: "20:30 Hrs." },
+    { icono: "torta", titulo: "Torta", hora: "22:30 Hrs." },
+    { icono: "despedida", titulo: "Fin", hora: "01:00 Hrs." },
+];
+---
+
+<section
+    id="itinerario"
+    class="relative w-full py-10 px-6 overflow-hidden isolate"
+>
+    <!-- FLOR DECORATIVA IZQUIERDA -->
+    <img
+        src="/imagenes/paleta/florcostado.webp"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 -left-12 w-40 pointer-events-none select-none opacity-30 -translate-y-1/2 z-[-1]"
+    />
+
+    <!-- TÍTULO -->
+    <p
+        data-revelar="arriba"
+        class="font-romantic text-3xl text-[#DE8F8A] text-center mb-10 leading-none"
+    >
+        Itinerario
+    </p>
+
+    <!-- TIMELINE GRID -->
+    <div class="relative max-w-sm mx-auto">
+        <!-- Línea vertical central -->
+        <div
+            class="absolute left-1/2 top-0 bottom-0 -translate-x-1/2"
+            style="border-left: 1.5px dashed rgba(232,169,163,0.5);"
+        >
+        </div>
+
+        <div class="grid grid-cols-2">
+            {
+                momentos.map((momento, i) => {
+                    const izquierda = i % 2 === 0;
+                    // Las dos últimas celdas cierran su columna: sin línea.
+                    const ultimoDeColumna = i >= momentos.length - 2;
+                    return (
+                        <div
+                            data-revelar={izquierda ? "izquierda" : "derecha"}
+                            class={`flex flex-col items-center text-center pb-2 ${izquierda ? "pr-3 pt-3" : "pl-3 pt-16"}`}
+                        >
+                            <img
+                                src={`/imagenes/paleta/${momento.icono}-rosa.png`}
+                                alt=""
+                                aria-hidden="true"
+                                class="w-12 h-12"
+                            />
+                            {/* Alto fijo de 2 líneas para que todas las celdas midan igual */}
+                            <div class="mt-2 min-h-[2.2rem] flex items-center">
+                                <p
+                                    class="font-cormorant uppercase text-sm text-[#263F86] leading-tight"
+                                    set:html={momento.titulo}
+                                />
+                            </div>
+                            <p class="font-charm font-bold text-lg text-[#2F4FA2] mt-1 leading-none">
+                                {momento.hora}
+                            </p>
+                            {!ultimoDeColumna && (
+                                <div class="w-full border-t border-dashed border-[#E8A9A3] opacity-50 mt-2" />
+                            )}
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </div>
+</section>
+

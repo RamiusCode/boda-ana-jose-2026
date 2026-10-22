@@ -1,0 +1,20 @@
+{
+  "name": "boda-ana-paola-y-jose-alfredo",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fotos": "node scripts/generar-galeria.mjs",
+    "miniatura": "node scripts/generar-miniatura.mjs",
+    "paleta": "node scripts/tenir-paleta.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.16",
+    "astro": "^5.15.2",
+    "gsap": "^3.13.0",
+    "tailwindcss": "^4.1.16"
+  }
+}
