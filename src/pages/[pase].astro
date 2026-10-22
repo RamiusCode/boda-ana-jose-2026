@@ -1,0 +1,19 @@
+---
+// src/pages/[pase].astro
+// Una página por cantidad de pases: /pase1, /pase2 … /pase5. Para ofrecer más,
+// basta con subir MAXIMO.
+import Invitacion from "../components/Invitacion.astro";
+
+export function getStaticPaths() {
+    // Va adentro: Astro ejecuta getStaticPaths aparte y no ve el resto del archivo.
+    const MAXIMO = 5;
+    return Array.from({ length: MAXIMO }, (_, i) => ({
+        params: { pase: `pase${i + 1}` },
+        props: { pases: i + 1 },
+    }));
+}
+
+const { pases } = Astro.props;
+---
+
+<Invitacion pases={pases} />

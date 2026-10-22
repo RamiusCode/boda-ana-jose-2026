@@ -1,0 +1,48 @@
+---
+// Invitacion.astro
+// La invitación completa. La usan index.astro y [pase].astro (/pase1 … /pase5),
+// así todas las páginas muestran lo mismo y solo cambia el número de pases.
+import Layout from "../layouts/Layout.astro";
+
+import Portada from "./Portada.astro";
+import NombresFlores from "./NombresFlores.astro";
+import Dedicatoria from "./Dedicatoria.astro";
+import NombresPadres from "./NombresPadres.astro";
+import Fecha from "./Fecha.astro";
+import DireccionCeremonia from "./DireccionCeremonia.astro";
+import Itinerario from "./Itinerario.astro";
+import Puntual from "./Puntual.astro";
+import CodigoVestimenta from "./CodigoVestimenta.astro";
+import SugerenciaRegalos from "./SugerenciaRegalos.astro";
+import Despedida from "./Despedida.astro";
+import FotoFinal from "./FotoFinal.astro";
+import Confirmar from "./Confirmar.astro";
+import GaleriaFotos from "./GaleriaFotos.astro";
+import Pase from "./Pase.astro";
+
+export interface Props {
+    pases: number;
+}
+
+const { pases } = Astro.props;
+---
+
+<Layout title="Ana Paola y José Alfredo">
+    <Portada />
+    <NombresFlores />
+    <Dedicatoria />
+    <NombresPadres />
+    <Fecha />
+    <DireccionCeremonia />
+    <Itinerario />
+    {/* Solo adultos: la invitación impresa no lo indica */}
+    <!-- <Puntual /> -->
+    <CodigoVestimenta />
+    <SugerenciaRegalos />
+    <GaleriaFotos />
+    <Pase pases={pases} />
+    <Confirmar />
+    <Despedida />
+
+    <!-- <FotoFinal /> -->
+</Layout>

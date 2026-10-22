@@ -7,7 +7,7 @@
 // se repintan del color plano conservando el canal alfa, que es lo que les da
 // el borde suave.
 //
-// Los adornos en acuarela (la rama del costado, el separador) no son de un
+// Los adornos en acuarela (la textura del fondo) no son de un
 // solo color, así que en vez de repintarlos se les gira el matiz: el verde
 // pasa a azul y se conservan las aguadas y el degradado.
 //
@@ -82,9 +82,10 @@ for (const icono of ["recepcion", "brindis", "cena", "musica", "torta", "despedi
     await tenir(`${icono}.png`, ROSA, `${icono}-rosa.png`);
 
 console.log("\nAdornos en acuarela:");
-// florcostado.png ya viene en los colores de la invitación (el ramo del
-// forro del sobre): no se tiñe, solo se comprime a paleta/florcostado.webp.
-await girarMatiz("separador.png", 125, "separador.png");
+// florcostado.png ya viene en los colores de la invitación (el ramo del forro
+// del sobre): no se tiñe, solo se comprime a paleta/florcostado.webp.
+// separador.png también viene en sus colores: solo se comprime a
+// paleta/separador.webp.
 await girarMatiz("textura2.png", 125, "textura2.png");
 
 console.log("\nSobre:");
