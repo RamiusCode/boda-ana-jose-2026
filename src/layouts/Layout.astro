@@ -9,9 +9,9 @@ const { title } = Astro.props;
 // Vista previa al compartir el enlace (WhatsApp, Facebook, Telegram…).
 // Las URLs deben ser absolutas, de ahí que dependan de `site`.
 //
-// miniatura-og.jpg sale de miniatura.jpg con `npm run miniatura`: la original
-// es 1527x1080 y WhatsApp solo muestra la tarjeta grande con 1200x630, así que
-// el script la encaja entera en ese lienzo en vez de recortarla.
+// miniatura-og.jpg sale de miniatura.png (1731x909), que ya viene en la
+// proporción de 1200x630 que pide WhatsApp para la tarjeta grande: solo se
+// reduce a esa medida y se comprime, sin recortar nada.
 const miniatura = Astro.site
   ? new URL("/imagenes/miniatura-og.jpg", Astro.site).href
   : "/imagenes/miniatura-og.jpg";

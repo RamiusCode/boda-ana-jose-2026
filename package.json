@@ -7,8 +7,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "fotos": "node scripts/generar-galeria.mjs",
-    "miniatura": "node scripts/generar-miniatura.mjs",
     "paleta": "node scripts/tenir-paleta.mjs"
   },
   "dependencies": {
