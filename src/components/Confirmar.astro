@@ -10,6 +10,13 @@ const contactos = [
     { etiqueta: "Confirmar con la novia", telefono: "59168213330" },
     { etiqueta: "Confirmar con el novio", telefono: "59171544550" },
 ];
+
+// Para quien no puede ir: avisa y deja sus buenos deseos. El invitado puede
+// editar el texto en WhatsApp antes de enviarlo. Llega a la novia.
+const telefonoNoAsiste = "59168213330";
+const mensajeNoAsiste = encodeURIComponent(
+    "Queridos Ana Paola y José Alfredo, con mucha pena no podré acompañarlos el 28 de noviembre. Que Dios bendiga su matrimonio y les dé una vida llena de amor. ¡Muchas felicidades!",
+);
 ---
 
 <section id="confirmar" class="relative w-full py-10 px-6 text-center overflow-hidden isolate">
@@ -60,5 +67,18 @@ const contactos = [
         }
     </div>
 
-    
+    <!-- NO PODRÁ ASISTIR: botón con borde, más discreto que los de confirmar -->
+    <div data-revelar="abajo" class="flex flex-col items-center mt-8">
+        <p class="font-cormorant italic text-xl text-[#3B5296]">
+            ¿No podrás acompañarnos?
+        </p>
+        <a
+            href={`https://wa.me/${telefonoNoAsiste}?text=${mensajeNoAsiste}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full max-w-xs block mt-3 py-3 px-6 rounded-full font-cormorant uppercase text-sm tracking-widest text-[#3F5AA6] bg-white border border-[#3F5AA6] hover:bg-[#eef1f9] transition-colors"
+        >
+            No podré asistir
+        </a>
+    </div>
 </section>
