@@ -1,20 +1,17 @@
 ---
 // Pase.astro
-// Tarjeta con los pases asignados al invitado. El número se pasa desde
-// index.astro —<Pase pases={2} />— para poder generar una invitación
-// distinta según a quién se le envíe.
+// Tarjeta con los pases asignados al invitado. El número que llega como prop
+// es el de respaldo (index = 1, /pase1 … /pase5). Si el link trae ?i=código,
+// el nombre y los pases se leen de la base y se pintan desde el script.
+import { textosPase } from "../lib/pase";
+
 export interface Props {
     pases?: number;
 }
 
 const { pases = 2 } = Astro.props;
 
-// Con un solo pase se tutea al invitado; desde dos, la frase va en plural.
-const individual = pases === 1;
-const etiqueta = individual ? "Pase" : "Pases";
-const frase = individual
-    ? "Esperamos contar con tu presencia"
-    : "Esperamos contar con su presencia";
+const { etiqueta, frase } = textosPase(pases);
 ---
 
 <section id="pases" class="relative w-full py-10 px-6 overflow-hidden isolate">
@@ -39,6 +36,24 @@ const frase = individual
         </div>
 
         <div class="relative">
+            <!-- DEDICATORIA AL INVITADO: escondida hasta que llega el nombre
+                 desde la base. Sin código en el link, o si el invitado no
+                 existe, no se muestra ningún nombre. -->
+            <div id="dedicatoria-invitado" style="display: none;">
+                <p class="font-cormorant italic text-lg text-[#3B5296]">
+                    Con mucho cariño para
+                </p>
+                <!-- No se fuerza a una sola línea: un nombre largo baja de
+                     renglón en vez de achicarse. -->
+                <p
+                    id="nombre-invitado"
+                    class="font-cormorant text-[1.6rem] text-[#263F86] leading-snug mt-1 mb-5"
+                >
+                </p>
+            </div>
+
+            <!-- BLOQUE DE PASES: se esconde solo si la boda tiene los pases apagados -->
+            <div id="bloque-pases">
             <!-- ICONO DE PASES -->
             <img
                 src="/imagenes/paleta/pase.png"
@@ -69,6 +84,7 @@ const frase = individual
 
             <!-- NÚMERO DE PASES -->
             <p
+                id="numero-pases"
                 class="font-charm font-bold text-6xl text-[#2F4FA2] leading-none mt-3"
             >
                 {pases}
@@ -76,6 +92,7 @@ const frase = individual
 
             <!-- PASE / PASES -->
             <p
+                id="palabra-pases"
                 class="font-cormorant uppercase tracking-[0.3em] text-sm text-[#3B5296] mt-2"
             >
                 {etiqueta}
@@ -96,13 +113,17 @@ const frase = individual
 
             <!-- FRASE -->
             <p
+                id="frase-pases"
                 class="font-cormorant italic text-xl text-[#3B5296] mt-5 leading-relaxed"
             >
                 {frase}
             </p>
 
             <!-- SILUETAS: una por pase -->
-            <div class="flex items-center justify-center gap-3 mt-6">
+            <div
+                id="iconos-pase"
+                class="flex items-center justify-center gap-3 mt-6"
+            >
                 {
                     Array.from({ length: pases }).map(() => (
                         <span
@@ -123,7 +144,68 @@ const frase = individual
                     ))
                 }
             </div>
+            </div>
         </div>
     </div>
 </section>
 
+<script>
+    // El link trae solo un código (?i=k7m2p); el nombre y los pases viven en
+    // la base. Si los novios los corrigen en el panel, el link ya enviado
+    // muestra lo corregido, incluso con la página abierta.
+    import { datosInvitado, alCambiarInvitado } from "../lib/invitado";
+    import type { Invitado } from "../lib/invitado";
+    import { textosPase } from "../lib/pase";
+
+    function pintarNombre(nombre: string | null | undefined) {
+        const caja = document.getElementById("dedicatoria-invitado");
+        const el = document.getElementById("nombre-invitado");
+        const limpio = nombre ? nombre.trim() : "";
+        if (el) el.textContent = limpio;
+        if (caja) caja.style.display = limpio ? "" : "none";
+    }
+
+    function pintarPases(pases: unknown) {
+        if (!Number.isInteger(pases) || (pases as number) <= 0) return;
+        const n = pases as number;
+        const { etiqueta, frase } = textosPase(n);
+
+        const num = document.getElementById("numero-pases");
+        const palabra = document.getElementById("palabra-pases");
+        const textoFrase = document.getElementById("frase-pases");
+        if (num) num.textContent = String(n);
+        if (palabra) palabra.textContent = etiqueta;
+        if (textoFrase) textoFrase.textContent = frase;
+
+        // Una silueta por pase: se clona la primera para no repetir el SVG.
+        const iconos = document.getElementById("iconos-pase");
+        const molde = iconos?.firstElementChild;
+        if (iconos && molde && iconos.children.length !== n) {
+            const copias = Array.from({ length: n }, () =>
+                molde.cloneNode(true),
+            );
+            iconos.replaceChildren(...copias);
+        }
+    }
+
+    function mostrar(inv: Invitado | null) {
+        // Sin invitado (link sin código, borrado o base caída) la tarjeta
+        // queda con los pases de respaldo y sin nombre.
+        if (!inv) return;
+
+        pintarNombre(inv.nombre);
+
+        // Si el panel apaga los pases, la tarjeta queda solo con el nombre.
+        const funciones = (inv.funciones || {}) as { pases?: boolean };
+        const bloque = document.getElementById("bloque-pases");
+        if (funciones.pases === false) {
+            if (bloque) bloque.style.display = "none";
+            return;
+        }
+        if (bloque) bloque.style.display = "";
+        pintarPases(inv.pases);
+    }
+
+    datosInvitado().then(mostrar);
+    alCambiarInvitado((inv) => mostrar(inv));
+</script>

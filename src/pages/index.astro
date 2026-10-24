@@ -1,7 +1,8 @@
 ---
 // src/pages/index.astro
-// Sin número en el enlace, la invitación va con un pase. Para más pases se
-// manda /pase2 … /pase5 (ver [pase].astro).
+// Link de cada invitado: /?i=código. El nombre y los pases llegan de la base
+// (ver src/lib/invitado.ts). Sin código, la invitación va con un pase y sin
+// nombre. /pase1 … /pase5 quedan como respaldo (ver [pase].astro).
 import Invitacion from "../components/Invitacion.astro";
 ---
 

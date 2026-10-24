@@ -20,6 +20,7 @@ import Confirmar from "./Confirmar.astro";
 import GaleriaFotos from "./GaleriaFotos.astro";
 import CompartirFotos from "./CompartirFotos.astro";
 import Pase from "./Pase.astro";
+import LinkNoDisponible from "./LinkNoDisponible.astro";
 
 export interface Props {
     pases: number;
@@ -29,6 +30,8 @@ const { pases } = Astro.props;
 ---
 
 <Layout title="Ana Paola y José Alfredo">
+    {/* Tapa la invitación si el código del link ya no existe en la base */}
+    <LinkNoDisponible />
     <Portada />
     <NombresFlores />
     <Dedicatoria />
